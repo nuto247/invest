@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AllController;
 use Illuminate\Support\Facades\Route;
 
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -23,7 +24,12 @@ Route::get('/logout', [AllController::class, 'logout'])->name('logout');
 
 Route::get('/dashboard', [AllController::class, 'dashboard'])->middleware(['auth', 'verified'])->name('dashboard');
 
+
 Route::get('/plans', [AllController::class, 'plans'])->middleware(['auth', 'verified'])->name('plans');
+
+Route::get('/addinvest', [AllController::class, 'addinvest'])->middleware(['auth', 'verified'])->name('addinvest');
+
+Route::post('/addinvests', [AllController::class, 'store'])->name('addinvests');
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

@@ -6730,6 +6730,20 @@ $(document).on("click", "#send-it", function() {
 
 <script src="../code.tidio.co_443/1mwp0csqhzyi6grb2o6o96crejgqqli6.js" async></script>
 
+<!--Start of Tawk.to Script-->
+<script type="text/javascript">
+var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+(function(){
+var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+s1.async=true;
+s1.src='https://embed.tawk.to/66994826becc2fed6927399b/1i33c3m6h';
+s1.charset='UTF-8';
+s1.setAttribute('crossorigin','*');
+s0.parentNode.insertBefore(s1,s0);
+})();
+</script>
+<!--End of Tawk.to Script-->
+
 </body>
 
 <!-- Mirrored from VortexIncome.com/ by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 12 Jul 2024 12:15:23 GMT -->
