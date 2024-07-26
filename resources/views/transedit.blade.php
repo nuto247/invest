@@ -68,23 +68,34 @@
             <div class="col-md-12 custom-card mb-3">
                 <div class="card">
                     <div class="card-body">
-                    <form method="POST" action="{{ route('login') }}">
-                            @csrf
-
+                    <form action="{{ route('updateTransaction', $transaction->id) }}" method="POST" id="updateTransactionForm">
+    @csrf
+    @method('PUT')
                        
+                          
 
-                  
                             <div class="form-group">
-                                <label for="investmentAmount">Email</label>
-                                <input type="text" class="form-control" name="email" placeholder="Enter email" >
-                            </div>
+                                <label for="investmentAmount">Investment Plan</label>
+                                <input type="text" class="form-control" id="investmentAmount" name="investment_plan"  value="{{ $transaction->investment_plan }}">
+                                </div>
+
                             <div class="form-group">
-                                <label >Password</label>
-                                <input type="password" class="form-control"  name="password" placeholder="Enter password" >
+                                <label for="investmentAmount">Crypto Network</label>
+                                <input type="text" class="form-control" id="investmentAmount" name="crypto_network" value="{{ $transaction->crypto_network }}">
+                                </div>
+                            <div class="form-group">
+                                <label for="investmentAmount">Investment Amount (USD)</label>
+                                <input type="number" class="form-control" id="investmentAmount" name="investment_amount" placeholder="Enter amount" value="{{ $transaction->investment_amount }}">
+                                </div>
+                            <div class="form-group">
+                                <label >Status</label>
+                                <select class="form-control" id="investmentPlan" name="status">
+                                    <option>Pending</option>
+                                    <option>Approved</option>
+                                </select>
+
                             </div>
-                            <button type="submit" class="btn btn-primary btn-block">Login</button>
-                            <br>
-                            <a href="register">Don't have an account? Click here to registert</a>
+                            <button type="submit" class="btn btn-primary btn-block">Invest Now!</button>
                         </form>
                     </div>
                 </div>

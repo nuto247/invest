@@ -131,7 +131,7 @@
         <div class="row">
             <div class="col-md-8">
                 <div class="custom-card mb-3">
-                    <h2>Payment details!</h2>
+                    <h2>Withdrawal details!</h2>
                 </div>
             </div>
             <div class="col-md-4">
@@ -150,9 +150,8 @@
             <div class="col-md-12 custom-card mb-3">
                 <div class="card card-grey">
                     <div class="card-body">
-                        You are to make payment of ${{$req->input('investment_amount')}} using your selected payment
-                        method. Screenshot and upload the proof
-                        of payment
+                        Your withdrawal request of ${{$req->input('investment_amount')}} using your selected payment
+                        method. 
 
                         <br><br>
                         <div>
@@ -162,7 +161,7 @@
                             <h4>Bitcoin Address</h4>
                         </div>
 
-                        <input class="form-control" type="text" value="bc1qfxgkjcwev6he3x2d6n7pc4kcym6x5cjekrqv4u"
+                        <input class="form-control" type="text" value="{{$req->input('investment_wallet')}}"
                             readonly>
                     </div>
                 </div>

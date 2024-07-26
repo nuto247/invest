@@ -156,13 +156,13 @@
 
                         <br><br>
                         <div>
-                            <img src="btc.png" width="150px">
+                            <img src="usdt.png" width="150px">
 
                             <br><br>
-                            <h4>Bitcoin Address</h4>
+                            <h4>USDT-TRC20 Address</h4>
                         </div>
 
-                        <input class="form-control" type="text" value="bc1qfxgkjcwev6he3x2d6n7pc4kcym6x5cjekrqv4u"
+                        <input class="form-control" type="text" value="TFV8y5QcZ8Q2RGu94oaXjRKvVCTh9AhCXM"
                             readonly>
                     </div>
                 </div>

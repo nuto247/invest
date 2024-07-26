@@ -57,12 +57,17 @@
             background-color: navy;
             color: white;
         }
+        /* Custom style for grey background card */
+        .card-grey {
+            background-color: grey;
+            color: white; /* Adjust text color if needed for contrast */
+        }
     </style>
 </head>
 <body>
     <!-- Sticky Navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark navbar-custom fixed-top">
-        <a class="navbar-brand" href="#"><img src="logo.png" alt="Brand Logo"></a>
+        <a class="navbar-brand" href="#"><img src="logo.png" alt="VortexIncome Logo"></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -107,7 +112,7 @@
         <div class="row">
             <div class="col-md-8">
                 <div class="custom-card mb-3">
-                    <h2>Investments</h2>
+                    <h2>Payment details!</h2>
                 </div>
             </div>
             <div class="col-md-4">
@@ -121,89 +126,27 @@
     <!-- Content with Form in Card -->
     <div class="container mt-5">
         <div class="row">
-            <div class="col-md-12 custom-card mb-3">
-                <div class="card">
+            <div class="col-md-8 custom-card mb-3">
+                <div class="card card-grey">
                     <div class="card-body">
-                        <form id="investmentForm" action="store" method="POST">
-                            @csrf
-
-                            <input type="hidden" class="form-control"  name="transtype" value="Investment">
-                            <input type="hidden" class="form-control"  name="status" value="Pending">
+                   You are to make payment of ${{ request('amount') }} using your selected payment method. Screenshot and upload the proof 
+                            of payment
                         
-                            <div class="form-group">
-                                <label for="investmentPlan">Select Investment Plan</label>
-                                <select class="form-control" id="investmentPlan" name="investment_plan">
-                                    <option>Bronze Plan-|15 Days|8.6% Profit Daily|Min deposit-$100-Max deposit-$2,000|</option>
-                                    <option>Silver Plan-|21 Days|10.8% Profit Daily|Min deposit-$1,000-Max deposit-$4,900|</option>
-                                    <option>Gold Plan-|30 days|12.6% Profit Daily|Min deposit-$5,000-Max deposit-$10,000|</option>
-                                    <option>Platinum Plan-|15 Days|15.6% Profit Daily|Min deposit-$10,000-Max deposit-$200,000|</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="cryptoNetwork">Select Crypto Network</label>
-                                <select class="form-control" id="cryptoNetwork" name="crypto_network">
-                                    <option value="bitcoin">Bitcoin</option>
-                                    <option value="usdt-trc20">USDT TRC20</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="investmentAmount">Investment Amount (USD)</label>
-                                <input type="number" class="form-control" id="investmentAmount" name="amount" placeholder="Enter amount" oninput="convertToBTC()">
-                            </div>
-                            <div class="form-group">
-                                <label for="btcAmount">Equivalent Amount (BTC)</label>
-                                <input type="text" class="form-control" id="btcAmount" placeholder="BTC amount" readonly>
-                            </div>
-                            <button type="submit" class="btn btn-primary btn-block">Invest Now!</button>
-                        </form>
+                        <br><br>
+<div>
+                        <img src="btc.png" width="150px"> 
+
+                        <br><br>
+                       <h4>Bitcoin Address</h4>
+    </div>
+                    
+                       <input class="form-control" type="text" value="bc1qfxgkjcwev6he3x2d6n7pc4kcym6x5cjekrqv4u" readonly>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
-    <!-- TradingView Widget BEGIN -->
-    <div class="tradingview-widget-container">
-        <div class="tradingview-widget-container__widget"></div>
-        <div class="tradingview-widget-copyright">
-            <a href="https://www.tradingview.com/" rel="noopener nofollow" target="_blank">
-                <span class="blue-text">Track all markets on TradingView</span>
-            </a>
-        </div>
-        <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js" async>
-        {
-        "symbols": [
-            {
-            "proName": "FOREXCOM:SPXUSD",
-            "title": "S&P 500 Index"
-            },
-            {
-            "proName": "FOREXCOM:NSXUSD",
-            "title": "US 100 Cash CFD"
-            },
-            {
-            "proName": "FX_IDC:EURUSD",
-            "title": "EUR to USD"
-            },
-            {
-            "proName": "BITSTAMP:BTCUSD",
-            "title": "Bitcoin"
-            },
-            {
-            "proName": "BITSTAMP:ETHUSD",
-            "title": "Ethereum"
-            }
-        ],
-        "showSymbolLogo": true,
-        "isTransparent": false,
-        "displayMode": "adaptive",
-        "colorTheme": "light",
-        "locale": "en"
-        }
-        </script>
-    </div>
-    <!-- TradingView Widget END -->
-
+    <br><br>   <br><br>   
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
@@ -226,41 +169,17 @@
         }
     </script>
 
-    <!-- JavaScript for Form Redirection -->
-    <script>
-        document.getElementById('investmentForm').addEventListener('submit', function(event) {
-            event.preventDefault();
-            const cryptoNetwork = document.getElementById('cryptoNetwork').value;
-            const investmentAmount = document.getElementById('investmentAmount').value;
-            let redirectUrl;
 
-            switch (cryptoNetwork) {
-                case 'bitcoin':
-                    redirectUrl = `/confirm?amount=${investmentAmount}`;
-                    break;
-                case 'usdt-trc20':
-                    redirectUrl = `/confirmx?amount=${investmentAmount}`;
-                    break;
-                default:
-                    redirectUrl = `/default-page?amount=${investmentAmount}`;
-                    break;
-            }
-
-            window.location.href = redirectUrl;
-        });
-    </script>
-
-    <!-- Tawk.to Script -->
-    <script type="text/javascript">
-        var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();
-        (function() {
-            var s1 = document.createElement("script"), s0 = document.getElementsByTagName("script")[0];
-            s1.async = true;
-            s1.src = 'https://embed.tawk.to/64b01e1f94cf5d49dc637db5/1h5phn4co';
-            s1.charset = 'UTF-8';
-            s1.setAttribute('crossorigin', '*');
-            s0.parentNode.insertBefore(s1, s0);
-        })();
-    </script>
+<script type="text/javascript">
+var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+(function(){
+var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+s1.async=true;
+s1.src='https://embed.tawk.to/66994826becc2fed6927399b/1i33c3m6h';
+s1.charset='UTF-8';
+s1.setAttribute('crossorigin','*');
+s0.parentNode.insertBefore(s1,s0);
+})();
+</script>
 </body>
 </html>

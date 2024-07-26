@@ -68,23 +68,33 @@
             <div class="col-md-12 custom-card mb-3">
                 <div class="card">
                     <div class="card-body">
-                    <form method="POST" action="{{ route('login') }}">
+                        <form  action="{{ route('withdrawx') }}" method="POST" id="investmentForm">
                             @csrf
 
-                       
+                            <input type="hidden" name="status" value="Pending">
+                            <input type="hidden" name="investment_type" value="Withdrawal">
+                        
+                            <div class="form-group">
+                                <label for="cryptoNetwork">Select Crypto Network</label>
+                                <select class="form-control" id="cryptoNetwork" name="crypto_network">
+                                    <option value="bitcoin">Bitcoin</option>
+                                    <option value="usdt_trc20">USDT TRC20</option>
+                                </select>
+                            </div>
 
-                  
                             <div class="form-group">
-                                <label for="investmentAmount">Email</label>
-                                <input type="text" class="form-control" name="email" placeholder="Enter email" >
+                                <label for="investmentAmount">Withdrawal Wallet Address</label>
+                                <input type="text" class="form-control"  name="investment_wallet" placeholder="Enter your wallet address">
                             </div>
                             <div class="form-group">
-                                <label >Password</label>
-                                <input type="password" class="form-control"  name="password" placeholder="Enter password" >
+                                <label for="investmentAmount">Withdrawal Amount (USD)</label>
+                                <input type="number" class="form-control" id="investmentAmount" name="investment_amount" placeholder="Enter amount" oninput="convertToBTC()">
                             </div>
-                            <button type="submit" class="btn btn-primary btn-block">Login</button>
-                            <br>
-                            <a href="register">Don't have an account? Click here to registert</a>
+                            <div class="form-group">
+                                <label for="btcAmount">Equivalent Amount (BTC)</label>
+                                <input type="text" class="form-control" id="btcAmount" name="btc_amount" placeholder="BTC amount" readonly>
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-block">Invest Now!</button>
                         </form>
                     </div>
                 </div>

@@ -37,7 +37,6 @@
             padding: 20px 0;
             text-align: center;
         }
-        /* Adding bottom border to all navbar items in mobile view */
         @media (max-width: 767px) {
             .navbar-nav .nav-item {
                 position: relative;
@@ -49,13 +48,37 @@
                 left: 0;
                 width: 100%;
                 height: 1px;
-                background-color: #ccc; /* Adjust color as needed */
+                background-color: #ccc;
             }
         }
-        /* Style for Available Balance card */
         .card-available-balance {
             background-color: navy;
             color: white;
+        }
+        .countup {
+            display: flex;
+            justify-content: space-around;
+            font-size: 2rem;
+            color: white;
+            padding: 20px 0;
+        }
+        .countup div {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100px;
+            height: 100px;
+            background-color: darkblue;
+            border-radius: 50%;
+            margin: 0 10px;
+        }
+        .countup span {
+            font-size: 3rem;
+            display: block;
+        }
+        .countup small {
+            font-size: 0.8rem;
         }
     </style>
 </head>
@@ -107,7 +130,12 @@
         <div class="row">
             <div class="col-md-8">
                 <div class="custom-card mb-3">
-                    <h2>Investments</h2>
+                   
+                        <div>
+                           <h2>All Transactions</h2>
+                        </div>
+                       
+       
                 </div>
             </div>
             <div class="col-md-4">
@@ -124,38 +152,33 @@
             <div class="col-md-12 custom-card mb-3">
                 <div class="card">
                     <div class="card-body">
-                        <form id="investmentForm" action="store" method="POST">
-                            @csrf
+                        <table class="table table-striped">
+                            <thead>
+                            
+                             
+                                <tr>
+                                    <th scope="col">Transaction Type</th>
+                                    <th scope="col">Investment Plan</th>
+                                    <th scope="col">Investment Amount</th>
+                                    <th scope="col">Status</th>
+                                    <th scope="col">Action</th>
+                                </tr>
+                             
+                            </thead>
+                            <tbody>
 
-                            <input type="hidden" class="form-control"  name="transtype" value="Investment">
-                            <input type="hidden" class="form-control"  name="status" value="Pending">
-                        
-                            <div class="form-group">
-                                <label for="investmentPlan">Select Investment Plan</label>
-                                <select class="form-control" id="investmentPlan" name="investment_plan">
-                                    <option>Bronze Plan-|15 Days|8.6% Profit Daily|Min deposit-$100-Max deposit-$2,000|</option>
-                                    <option>Silver Plan-|21 Days|10.8% Profit Daily|Min deposit-$1,000-Max deposit-$4,900|</option>
-                                    <option>Gold Plan-|30 days|12.6% Profit Daily|Min deposit-$5,000-Max deposit-$10,000|</option>
-                                    <option>Platinum Plan-|15 Days|15.6% Profit Daily|Min deposit-$10,000-Max deposit-$200,000|</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="cryptoNetwork">Select Crypto Network</label>
-                                <select class="form-control" id="cryptoNetwork" name="crypto_network">
-                                    <option value="bitcoin">Bitcoin</option>
-                                    <option value="usdt-trc20">USDT TRC20</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="investmentAmount">Investment Amount (USD)</label>
-                                <input type="number" class="form-control" id="investmentAmount" name="amount" placeholder="Enter amount" oninput="convertToBTC()">
-                            </div>
-                            <div class="form-group">
-                                <label for="btcAmount">Equivalent Amount (BTC)</label>
-                                <input type="text" class="form-control" id="btcAmount" placeholder="BTC amount" readonly>
-                            </div>
-                            <button type="submit" class="btn btn-primary btn-block">Invest Now!</button>
-                        </form>
+                            @foreach($transactions as $transaction)
+                                <tr>
+                                    <td>{{ $transaction->investment_type }}</td>
+                                    <td>{{ $transaction->investment_plan }}</td>
+                                   
+                                    <td>{{ $transaction->investment_amount }}</td>
+                                    <td>{{ $transaction->status }}</td>
+                                    <td><a href="{{ route('transedit', $transaction->id) }} "><input type="button" class="btn btn-primary" value="Edit"></a></td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
@@ -165,40 +188,36 @@
     <!-- TradingView Widget BEGIN -->
     <div class="tradingview-widget-container">
         <div class="tradingview-widget-container__widget"></div>
-        <div class="tradingview-widget-copyright">
-            <a href="https://www.tradingview.com/" rel="noopener nofollow" target="_blank">
-                <span class="blue-text">Track all markets on TradingView</span>
-            </a>
-        </div>
+        <div class="tradingview-widget-copyright"><a href="https://www.tradingview.com/" rel="noopener nofollow" target="_blank"></a></div>
         <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js" async>
         {
-        "symbols": [
-            {
-            "proName": "FOREXCOM:SPXUSD",
-            "title": "S&P 500 Index"
-            },
-            {
-            "proName": "FOREXCOM:NSXUSD",
-            "title": "US 100 Cash CFD"
-            },
-            {
-            "proName": "FX_IDC:EURUSD",
-            "title": "EUR to USD"
-            },
-            {
-            "proName": "BITSTAMP:BTCUSD",
-            "title": "Bitcoin"
-            },
-            {
-            "proName": "BITSTAMP:ETHUSD",
-            "title": "Ethereum"
-            }
-        ],
-        "showSymbolLogo": true,
-        "isTransparent": false,
-        "displayMode": "adaptive",
-        "colorTheme": "light",
-        "locale": "en"
+            "symbols": [
+                {
+                    "proName": "FOREXCOM:SPXUSD",
+                    "title": "S&P 500 Index"
+                },
+                {
+                    "proName": "FOREXCOM:NSXUSD",
+                    "title": "US 100 Cash CFD"
+                },
+                {
+                    "proName": "FX_IDC:EURUSD",
+                    "title": "EUR to USD"
+                },
+                {
+                    "proName": "BITSTAMP:BTCUSD",
+                    "title": "Bitcoin"
+                },
+                {
+                    "proName": "BITSTAMP:ETHUSD",
+                    "title": "Ethereum"
+                }
+            ],
+            "showSymbolLogo": true,
+            "isTransparent": false,
+            "displayMode": "adaptive",
+            "colorTheme": "light",
+            "locale": "en"
         }
         </script>
     </div>
@@ -216,47 +235,69 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
-    <!-- JavaScript for BTC Conversion -->
+    <!-- JavaScript for Countup Timer -->
     <script>
-        function convertToBTC() {
-            const btcRate = 30000; // Example conversion rate, 1 BTC = 30000 USD
-            const investmentAmount = document.getElementById('investmentAmount').value;
-            const btcAmount = investmentAmount / btcRate;
-            document.getElementById('btcAmount').value = btcAmount.toFixed(6); // Display up to 6 decimal places
-        }
-    </script>
+        function countupTimer() {
+            const startTime = new Date().getTime();
+            const daysElement = document.getElementById("days");
+            const hoursElement = document.getElementById("hours");
+            const minutesElement = document.getElementById("minutes");
+            const secondsElement = document.getElementById("seconds");
 
-    <!-- JavaScript for Form Redirection -->
-    <script>
-        document.getElementById('investmentForm').addEventListener('submit', function(event) {
-            event.preventDefault();
-            const cryptoNetwork = document.getElementById('cryptoNetwork').value;
-            const investmentAmount = document.getElementById('investmentAmount').value;
-            let redirectUrl;
+            function updateTimer() {
+                const now = new Date().getTime();
+                const timeElapsed = now - startTime;
 
-            switch (cryptoNetwork) {
-                case 'bitcoin':
-                    redirectUrl = `/confirm?amount=${investmentAmount}`;
-                    break;
-                case 'usdt-trc20':
-                    redirectUrl = `/confirmx?amount=${investmentAmount}`;
-                    break;
-                default:
-                    redirectUrl = `/default-page?amount=${investmentAmount}`;
-                    break;
+                const days = Math.floor(timeElapsed / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((timeElapsed % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((timeElapsed % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((timeElapsed % (1000 * 60)) / 1000);
+
+                daysElement.innerHTML = days.toString().padStart(2, '0');
+                hoursElement.innerHTML = hours.toString().padStart(2, '0');
+                minutesElement.innerHTML = minutes.toString().padStart(2, '0');
+                secondsElement.innerHTML = seconds.toString().padStart(2, '0');
             }
 
-            window.location.href = redirectUrl;
-        });
+            setInterval(updateTimer, 1000);
+        }
+
+        document.addEventListener("DOMContentLoaded", countupTimer);
     </script>
 
-    <!-- Tawk.to Script -->
+    <!-- Additional Scripts -->
+    <script>
+        function convertToBTC() {
+            const usdAmount = document.getElementById("usdAmount").value;
+            const btcRate = 0.000029; 
+            const btcAmount = usdAmount * btcRate;
+            document.getElementById("btcAmount").value = btcAmount.toFixed(8);
+        }
+
+        function handleFormSubmission() {
+            document.getElementById('investmentForm').addEventListener('submit', function(event) {
+                event.preventDefault();
+                const selectedNetwork = document.getElementById('selectNetwork').value;
+                if (selectedNetwork === 'bitcoin') {
+                    window.location.href = 'bitcoin.html';
+                } else if (selectedNetwork === 'ethereum') {
+                    window.location.href = 'ethereum.html';
+                } else {
+                    alert('Please select a valid network');
+                }
+            });
+        }
+
+        document.addEventListener("DOMContentLoaded", handleFormSubmission);
+    </script>
+
+    <!-- Tawk.to Integration -->
     <script type="text/javascript">
         var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();
         (function() {
             var s1 = document.createElement("script"), s0 = document.getElementsByTagName("script")[0];
             s1.async = true;
-            s1.src = 'https://embed.tawk.to/64b01e1f94cf5d49dc637db5/1h5phn4co';
+            s1.src = 'https://embed.tawk.to/your_property_id/default';
             s1.charset = 'UTF-8';
             s1.setAttribute('crossorigin', '*');
             s0.parentNode.insertBefore(s1, s0);

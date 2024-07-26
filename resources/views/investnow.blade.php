@@ -124,7 +124,7 @@
             <div class="col-md-12 custom-card mb-3">
                 <div class="card">
                     <div class="card-body">
-                        <form id="investmentForm" action="store" method="POST">
+                        <form  action="{{ route('submitinvest') }}" method="POST">
                             @csrf
 
                             <input type="hidden" class="form-control"  name="transtype" value="Investment">
@@ -217,38 +217,10 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
     <!-- JavaScript for BTC Conversion -->
-    <script>
-        function convertToBTC() {
-            const btcRate = 30000; // Example conversion rate, 1 BTC = 30000 USD
-            const investmentAmount = document.getElementById('investmentAmount').value;
-            const btcAmount = investmentAmount / btcRate;
-            document.getElementById('btcAmount').value = btcAmount.toFixed(6); // Display up to 6 decimal places
-        }
-    </script>
+  
 
     <!-- JavaScript for Form Redirection -->
-    <script>
-        document.getElementById('investmentForm').addEventListener('submit', function(event) {
-            event.preventDefault();
-            const cryptoNetwork = document.getElementById('cryptoNetwork').value;
-            const investmentAmount = document.getElementById('investmentAmount').value;
-            let redirectUrl;
 
-            switch (cryptoNetwork) {
-                case 'bitcoin':
-                    redirectUrl = `/confirm?amount=${investmentAmount}`;
-                    break;
-                case 'usdt-trc20':
-                    redirectUrl = `/confirmx?amount=${investmentAmount}`;
-                    break;
-                default:
-                    redirectUrl = `/default-page?amount=${investmentAmount}`;
-                    break;
-            }
-
-            window.location.href = redirectUrl;
-        });
-    </script>
 
     <!-- Tawk.to Script -->
     <script type="text/javascript">

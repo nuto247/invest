@@ -107,7 +107,7 @@
         <div class="row">
             <div class="col-md-8">
                 <div class="custom-card mb-3">
-                    <h2>Investments</h2>
+                    <h2>Welcome, {{$user->name}}!</h2>
                 </div>
             </div>
             <div class="col-md-4">
@@ -124,12 +124,8 @@
             <div class="col-md-12 custom-card mb-3">
                 <div class="card">
                     <div class="card-body">
-                        <form id="investmentForm" action="store" method="POST">
+                        <form id="investmentForm" method="GET">
                             @csrf
-
-                            <input type="hidden" class="form-control"  name="transtype" value="Investment">
-                            <input type="hidden" class="form-control"  name="status" value="Pending">
-                        
                             <div class="form-group">
                                 <label for="investmentPlan">Select Investment Plan</label>
                                 <select class="form-control" id="investmentPlan" name="investment_plan">
@@ -161,48 +157,6 @@
             </div>
         </div>
     </div>
-
-    <!-- TradingView Widget BEGIN -->
-    <div class="tradingview-widget-container">
-        <div class="tradingview-widget-container__widget"></div>
-        <div class="tradingview-widget-copyright">
-            <a href="https://www.tradingview.com/" rel="noopener nofollow" target="_blank">
-                <span class="blue-text">Track all markets on TradingView</span>
-            </a>
-        </div>
-        <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js" async>
-        {
-        "symbols": [
-            {
-            "proName": "FOREXCOM:SPXUSD",
-            "title": "S&P 500 Index"
-            },
-            {
-            "proName": "FOREXCOM:NSXUSD",
-            "title": "US 100 Cash CFD"
-            },
-            {
-            "proName": "FX_IDC:EURUSD",
-            "title": "EUR to USD"
-            },
-            {
-            "proName": "BITSTAMP:BTCUSD",
-            "title": "Bitcoin"
-            },
-            {
-            "proName": "BITSTAMP:ETHUSD",
-            "title": "Ethereum"
-            }
-        ],
-        "showSymbolLogo": true,
-        "isTransparent": false,
-        "displayMode": "adaptive",
-        "colorTheme": "light",
-        "locale": "en"
-        }
-        </script>
-    </div>
-    <!-- TradingView Widget END -->
 
     <!-- Footer -->
     <footer class="footer">

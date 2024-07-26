@@ -20,6 +20,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/invest', [AllController::class, 'invest'])->middleware(['auth', 'verified'])->name('invest');
+
 Route::get('/logout', [AllController::class, 'logout'])->name('logout');
 
 Route::get('/dashboard', [AllController::class, 'dashboard'])->middleware(['auth', 'verified'])->name('dashboard');
@@ -33,23 +35,20 @@ Route::get('/withdraw', [AllController::class, 'withdraw'])->middleware(['auth',
 Route::post('/withdraws', [AllController::class, 'withdraws'])->middleware(['auth', 'verified'])->name('withdraws');
 Route::get('/confirmx', [AllController::class, 'confirmx'])->middleware(['auth', 'verified'])->name('confirmx');
 
-Route::get('/planssss', [AllController::class, 'plans'])->middleware(['auth', 'verified'])->name('plans');
+Route::get('/plans', [AllController::class, 'plans'])->middleware(['auth', 'verified'])->name('plans');
 
-Route::get('/invest', [AllController::class, 'addinvest'])->middleware(['auth', 'verified'])->name('addinvest');
-Route::post('/withdrawx', [AllController::class, 'withdrawx'])->name('withdrawx');
+Route::get('/addinvest', [AllController::class, 'addinvest'])->middleware(['auth', 'verified'])->name('addinvest');
 
-Route::post('/addinvests', [AllController::class, 'addinvests'])->name('addinvests');
-Route::get('/bitcoinPage', [AllController::class, 'bitcoinPage'])->name('bitcoinPage');
-Route::get('/usdtPage', [AllController::class, 'usdtPage'])->name('usdtPage');
-Route::get('/defaultPage', [AllController::class, 'defaultPage'])->name('defaultPage');
-Route::get('/success', [AllController::class, 'success'])->name('success');
+Route::post('/addinvests', [AllController::class, 'store'])->name('addinvests');
 
-Route::get('/listtransx', [AllController::class, 'listusers'])->middleware(['auth', 'verified'])->name('listusers');
-Route::get('/transedit/{id}', [AllController::class, 'transedit'])->name('transedit');
-Route::put('/transactions/{id}', [AllController::class, 'updateTransaction'])->name('updateTransaction');
-Route::get('/mytrans', [AllController::class, 'mytrans'])->middleware(['auth', 'verified'])->name('mytrans');
+Route::post('/store', [AllController::class, 'store'])->name('store');
 
-Route::post('/addwithdrawal', [AllController::class, 'addwithdrawal'])->name('addwithdrawal');
+Route::get('/investnow', [AllController::class, 'investnow'])->name('investnow');
+
+Route::post('/submitinvest', [AllController::class, 'submitinvest'])->name('submitinvest');
+
+
+Route::get('/listusers', [AllController::class, 'listusers'])->middleware(['auth', 'verified'])->name('listusers');
 
 Route::get('/adddetail', [AllController::class, 'adddetail'])->middleware(['auth', 'verified'])->name('adddetail');
 Route::middleware('auth')->group(function () {
