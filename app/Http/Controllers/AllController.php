@@ -7,11 +7,48 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Addinvest;
 use App\Models\User;
 use App\Models\Transaction;
+use Illuminate\Support\Facades\Log;
 
 
 class AllController extends Controller
 {
     //
+
+
+    public function updateInvestments()
+    {
+        $interestRate = 0.086; // 8.6%
+
+        // Run the update process in a loop
+        while (true) {
+            try {
+                // Get all investments with the Bronze plan
+                $investments = AddInvest::where('investment_plan', 'Bronze plan')->get();
+
+                foreach ($investments as $investment) {
+                    // Calculate the new amount with interest
+                    $investment->investment_amount += $investment->investment_amount * $interestRate;
+                    $investment->save();
+                }
+
+                // Log the success
+                Log::info('Investment amounts updated.');
+
+                // Wait for 60 seconds before running again
+                sleep(60);
+            } catch (\Exception $e) {
+                // Log any errors
+                Log::error('Error updating investments: ' . $e->getMessage());
+
+                // Sleep for a bit before retrying
+                sleep(60);
+            }
+        }
+
+        // After the loop, return the home view
+        return view('home');
+    }
+
     public function logout(Request $request)
     {
         Auth::logout();
@@ -28,7 +65,9 @@ class AllController extends Controller
         $transactions = Addinvest::where('uid', Auth::id())->get();
 
         $totalInvestment = Addinvest::where('uid', Auth::id())->sum('investment_amount');
-        return view('dashboard', compact('user', 'totalInvestment', 'transactions'));
+
+        $totalWithdrawal = Addinvest::where('uid', Auth::id())->sum('withdrawal_amount');
+        return view('home', compact('user', 'totalInvestment', 'totalWithdrawal', 'transactions'));
     }
 
 
@@ -297,7 +336,7 @@ public function mytrans(Request $request)
         $investment->investment_wallet = $request->input('investment_wallet');
         $investment->investment_type = $request->input('investment_type');
         $investment->investment_plan = $request->input('investment_plan');
-        $investment->investment_amount = $request->input('investment_amount');
+        $investment->withdrawal_amount = $request->input('withdrawal_amount');
         $investment->crypto_network = $request->input('crypto_network');
         $investment->btc_amount = $request->input('btc_amount');
         $investment->status = $request->input('status');

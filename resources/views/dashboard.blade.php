@@ -72,7 +72,11 @@
                 <div class="col-md-6">
                     <div class="card mb-3">
                         <div class="card-body">
-                            <h5 class="card-title">0.00USD</h5>
+                            <h5 class="card-title">
+                                @if($transactions->isEmpty())
+                                <p>0.00USD.</p>
+                                @else{{ number_format($totalInvestment, 2) }} USD
+                                @endif</h5>
                             <p class="card-text">Total Withdrawals</p>
                         </div>
                     </div>

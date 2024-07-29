@@ -88,13 +88,13 @@
                             </div>
                             <div class="form-group">
                                 <label for="investmentAmount">Withdrawal Amount (USD)</label>
-                                <input type="number" class="form-control" id="investmentAmount" name="investment_amount" placeholder="Enter amount" oninput="convertToBTC()">
+                                <input type="number" class="form-control" id="investmentAmount" name="withdrawal_amount" placeholder="Enter amount" oninput="convertToBTC()">
                             </div>
                             <div class="form-group">
                                 <label for="btcAmount">Equivalent Amount (BTC)</label>
                                 <input type="text" class="form-control" id="btcAmount" name="btc_amount" placeholder="BTC amount" readonly>
                             </div>
-                            <button type="submit" class="btn btn-primary btn-block">Invest Now!</button>
+                            <button type="submit" class="btn btn-primary btn-block">Withdraw Now!</button>
                         </form>
                     </div>
                 </div>

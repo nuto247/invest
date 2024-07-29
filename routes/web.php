@@ -20,6 +20,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/home1', [AllController::class, 'updateInvestments']);
+
 Route::get('/logout', [AllController::class, 'logout'])->name('logout');
 
 Route::get('/dashboard', [AllController::class, 'dashboard'])->middleware(['auth', 'verified'])->name('dashboard');
